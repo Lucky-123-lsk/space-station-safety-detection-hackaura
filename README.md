@@ -1,32 +1,103 @@
-# space-station-safety-detection-hackaura
-An AI-powered object detection system designed to ensure astronaut safety inside a space station. The model is trained on the Falcon dataset using YOLOv8, capable of detecting key safety equipment such as fire extinguishers, first aid boxes, nitrogen tanks, space tanks, emergency phones, fire alarms, and safety switch panels.
-# Space Station Safety Detection (HackAura)
+🦅 Falcon Safety Equipment Detection
+📌 Project Overview
+
+This project focuses on automatic detection of workplace safety equipment using the YOLOv8 object detection model.
+The solution is built using the Falcon dataset, which contains annotated images of multiple safety-related objects.
+
+Our objective is to ensure real-time detection of essential safety tools, which can be applied in industries, factories, or workplaces to minimize human error and enhance safety compliance.
+
+👥 Team
+Anshu Porwal
+Meenakshi Paraye
+Naman Singh Kushwaha
+
+Team: SolutionMakers
+
+🚀 Features
+
+Detects 7 classes of safety equipment:
+
+Oxygen Tank
+
+Nitrogen Tank
+
+First Aid Box
+
+Fire Alarm
+
+Safety Switch Panel
+
+Emergency Phone
+
+Fire Extinguisher
+
+Training performed using YOLOv8n (lightweight, fast, and accurate).
+
+Includes training pipeline, evaluation, and prediction scripts (train.py, predict.py).
+
+Results include metrics such as Precision, Recall, mAP@50, mAP@50-95, Confusion Matrix.
+
+📂 Project Structure
+Final_Submission/
+│── train.py          # Training script
+│── predict.py        # Prediction script
+│── falcon.yaml       # Dataset configuration
+│── runs/             # Training outputs (weights, metrics, logs)
+│── Final_Submission.zip
+
+⚙️ Installation & Requirements
+
+Run in Google Colab (preferred) or a local Python environment with GPU.
+
+Install dependencies:
+pip install ultralytics opencv-python matplotlib seaborn albumentations gdown
+
+📊 Training
+
+To train the model:
+
+python train.py
 
 
-Detects critical safety objects inside a space station using YOLOv8.
+This will:
+
+Train YOLOv8n for 50 epochs.
+
+Save weights in runs/exp_falcon/weights/best.pt.
+
+🔎 Prediction
+
+To run inference on test images:
+
+python predict.py
 
 
-## Object classes
-- space_tank
-- nitrogen_tank
-- first_aid_box
-- fire_alarm
-- safety_switch_panel
-- emergency_phone
-- fire_extinguisher
+Outputs are saved in:
 
+runs/exp_falcon_preds/images/
 
-## Project structure
-space_station_safety/ ├── dataset/ │ ├── images/ │ └── labels/ ├── models/ ├── train.py ├── detect.py ├── main.py ├── dataset.yaml ├── requirements.txt └── README.md
+📈 Results & Performance
 
-## Quick start
-1. Create a Python venv (recommended) and activate it.
-2. Install requirements: `pip install -r requirements.txt`
-3. Put the Falcon dataset into `./dataset` so that `images/train`, `images/val` and `labels/*` exist, or edit `dataset.yaml` to match paths.
-4. Train: `python main.py train --epochs 50 --imgsz 640 --model yolov8n.pt`
-5. Run inference: `python main.py detect --source path_or_camera --weights runs/train/exp/weights/best.pt --conf 0.25`
+Precision: ~81%
 
+Recall: ~76%
 
-## Notes
-- This project uses Ultralytics YOLO (v8) Python API.
-- If your Falcon dataset uses COCO/YOLO/PASCAL VOC, convert or update `dataset.yaml` accordingly.
+mAP@50: ~78%
+
+mAP@50-95: ~62%
+
+Confusion matrix confirms strong detection across most classes.
+
+🎯 Future Work
+
+Expand dataset with more real-world images.
+
+Try larger YOLOv8 variants (YOLOv8m, YOLOv8l).
+
+Deploy model into real-time surveillance systems.
+
+🙏 Acknowledgment
+
+Ultralytics YOLOv8 for state-of-the-art object detection.
+
+Falcon Dataset for safety equipment images.
