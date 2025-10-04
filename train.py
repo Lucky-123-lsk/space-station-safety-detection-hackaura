@@ -1,19 +1,25 @@
+# === train.py ===
 from ultralytics import YOLO
-import argparse
+import os
 
+if __name__ == "__main__":
+    # Path to dataset YAML
+    data_yaml = "falcon.yaml"
+    if not os.path.exists(data_yaml):
+        raise FileNotFoundError(f"Dataset config '{data_yaml}' not found!")
 
-def train(data='dataset.yaml', model='yolov8n.pt', epochs=50, imgsz=640, batch=16):
-# Create a YOLO object and call .train()
-yolo = YOLO(model)
-yolo.train(data=data, epochs=epochs, imgsz=imgsz, batch=batch)
+    # Initialize YOLOv8 model (smallest for faster training, can change to yolov8s/m/l)
+    model = YOLO("yolov8n.pt")
 
+    # Train the model
+    model.train(
+        data=data_yaml,
+        epochs=50,          # change epochs if needed
+        imgsz=640,          # image size
+        batch=16,           # batch size
+        project="runs",     # save outputs here
+        name="exp_falcon",  # experiment name
+        exist_ok=True       # overwrite if folder exists
+    )
 
-if __name__ == '__main__':
-parser = argparse.ArgumentParser()
-parser.add_argument('--data', default='dataset.yaml')
-parser.add_argument('--model', default='yolov8n.pt')
-parser.add_argument('--epochs', type=int, default=50)
-parser.add_argument('--imgsz', type=int, default=640)
-parser.add_argument('--batch', type=int, default=16)
-args = parser.parse_args()
-train(data=args.data, model=args.model, epochs=args.epochs, imgsz=args.imgsz, batch=args.batch)
+    print("✅ Training complete! Check 'runs/exp_falcon' for outputs.")
